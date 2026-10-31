@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>Go Roadmap — подготовка к стажировке</title>
+<style>
+:root{color-scheme:dark;--bg:#0c0d0f;--surface:#141619;--fg:#f1f2f3;--muted:#a5a9ae;--line:#2b2f34;--code:#1c1f23;--accent:#3b82f6;--accent-soft:#14294b;--link:#78adff;--done:#a6abb1;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--fg);font-size:16px;line-height:1.62}
+header{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topline{max-width:1060px;margin:auto;padding:14px 28px 10px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+#doc-title{font-size:20px;font-weight:500;line-height:1.3;margin:0;letter-spacing:-.02em}
+.progress-box{min-width:190px;display:grid;grid-template-columns:1fr auto;gap:5px 12px;align-items:center;font-size:12px;color:var(--muted)}
+#progress-label{white-space:nowrap;font-variant-numeric:tabular-nums}.track{height:4px;background:#30343a;border-radius:5px;overflow:hidden;grid-column:1/-1}.bar{height:100%;width:0;background:var(--accent);transition:width .2s ease}
+.tabs{max-width:1060px;margin:auto;padding:0 28px;display:flex;gap:22px;overflow-x:auto}.tab{color:var(--muted);border:0;border-bottom:2px solid transparent;background:none;padding:10px 0 11px;font:inherit;font-size:14px;white-space:nowrap;cursor:pointer}.tab.active{color:var(--fg);border-bottom-color:var(--accent)}.tab:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+main{max-width:890px;margin:0 auto;padding:34px 28px 90px}.document[hidden]{display:none}.document h2,.document h3,.document h4{font-family:Georgia,"Times New Roman",serif;font-weight:400;line-height:1.25;letter-spacing:-.015em;color:#f4f4f2;margin:1.65em 0 .55em}.document h2{font-size:29px}.document h3{font-size:23px}.document h4{font-size:19px}.document p{margin:0 0 1em}.document ul,.document ol{padding-left:1.55em;margin:.25em 0 1em}.document li{padding-left:.1em;margin:.22em 0}.document li::marker{color:#b2b6bc}.document a{color:var(--link);text-decoration:underline;text-decoration-color:#5574a0;text-underline-offset:3px}.document code{font: .9em ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--code);padding:.14em .34em;border-radius:4px;color:#e3e8ef}.document pre{background:var(--code);padding:16px 18px;border-radius:8px;overflow:auto;margin:1em 0 1.1em;line-height:1.55}.document pre code{background:none;padding:0;border-radius:0;white-space:pre;color:#e4e7eb;font-size:13px}.document blockquote{margin:1em 0;padding:10px 15px;border-left:3px solid var(--accent);background:var(--accent-soft);color:#e6e8ec;border-radius:0 5px 5px 0}.document blockquote p:last-child{margin-bottom:0}.document hr{border:0;border-top:1px solid var(--line);margin:1.8em 0}.table-wrap{overflow-x:auto;margin:1.2em 0 1.5em}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.45}th,td{text-align:left;vertical-align:top;border-bottom:1px solid var(--line);padding:10px 12px}th{font-weight:500;color:#dfe4ea;background:var(--surface)}tbody tr:nth-child(even){background:color-mix(in srgb,var(--surface) 55%,var(--bg))}
+.task{list-style:none;margin:.35em 0!important;padding:0!important}.task label{display:flex;align-items:flex-start;gap:12px;cursor:pointer}.task input{appearance:none;flex:0 0 23px;width:23px;height:23px;margin:.13em 0 0;border:1.5px solid #8a8f96;border-radius:5px;background:transparent;cursor:pointer;position:relative}.task input:checked{background:var(--accent);border-color:var(--accent)}.task input:checked::after{content:"";position:absolute;left:6px;top:2px;width:6px;height:12px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}.task label span{flex:1;min-width:0}.task input:checked+span{color:var(--done);text-decoration:line-through;text-decoration-thickness:1.5px}.task label:hover span{color:#fff}
+@media(max-width:600px){body{font-size:15px}.topline{padding:12px 17px 9px;align-items:flex-start;flex-direction:column;gap:10px}#doc-title{font-size:18px}.progress-box{width:100%;grid-template-columns:1fr auto}.tabs{padding:0 17px;gap:18px}main{padding:25px 18px 65px}.document h2{font-size:26px}.document h3{font-size:21px}th,td{padding:8px 9px}table{font-size:13px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bar{transition:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="topline">
+    <h1 id="doc-title">Go Roadmap — подготовка к стажировке</h1>
+    <div class="progress-box" aria-live="polite">
+      <span id="progress-label">0 из 0 выполнено</span>
+      <span id="progress-percent">0%</span>
+      <div class="track" role="progressbar" aria-label="Прогресс текущего документа" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" id="progress-bar"></div></div>
+    </div>
+  </div>
+  <div class="tabs" role="tablist" aria-label="Документы">
+    <button class="tab active" id="tab-roadmap" role="tab" aria-controls="panel-roadmap" aria-selected="true" type="button">Roadmap</button>
+    <button class="tab" id="tab-projects" role="tab" aria-controls="panel-projects" aria-selected="false" type="button">Пет-проекты</button>
+  </div>
+</header>
+<main>
+  <section class="document active" id="panel-roadmap" role="tabpanel" aria-labelledby="tab-roadmap" data-doc="roadmap" data-title="Go Roadmap — подготовка к стажировке" data-total="57"><p>Oct 24, 2026 · @Roman</p>
+<h2>Как пользоваться</h2>
+<p><strong>Отклики начинаются сейчас, параллельно с учёбой.</strong> Не жди завершения roadmap или большого пет-проекта: проверь требования открытых наборов, подайся туда, где уже проходишь формальные условия, и готовься к следующему этапу. На 29 октября 2026 официальная страница Яндекс Стажировки показывает backend-набор открытым; там первый отбор — контест на 5 задач за 5 часов. Статус наборов меняется, поэтому проверяй страницу перед откликом.</p>
+<p>Цель — дойти до уровня, с которым проходят отбор на Go-стажировку в Т-Банк, Авито, Ozon, Wildberries, VK, МТС или Яндекс. Сроков нет: этап закрыт, когда выполнен его чек-лист «Должен уметь», а не когда прошло время.</p>
+<p><strong>Порядок этапов не случаен.</strong> Каждый следующий опирается на предыдущий. Конкурентность без понимания слайсов, мап и интерфейсов превращается в заучивание, веб-сервис без SQL и горутин — в копирование туториала.</p>
+<p><strong>Параллельно со всеми этапами идут:</strong></p>
+<ul>
+<li>Алгоритмы (этап 4) — с первого дня, по 1–2 задачи в день, на Go. Первый фильтр почти везде — контест.</li>
+<li>SQL (этап 3) можно начать параллельно с этапом 2.</li>
+<li>Вопросы к собеседованию — после каждого этапа прогоняешь соответствующий раздел из вкладки «Задачник».</li>
+</ul>
+<p><strong>Правило перехода между этапами:</strong></p>
+<ol>
+<li>Все пункты «Должен уметь» отмечены.</li>
+<li>Обязательные задачи этапа из «Задачника» решены сам, без копирования готового решения.</li>
+<li>Можешь объяснить каждую тему вслух своими словами, как на собеседовании.</li>
+</ol>
+<p><strong>Правила работы:</strong></p>
+<ul>
+<li>Без вайбкодинга. ИИ можно спрашивать «почему», но код пишешь сам.</li>
+<li>Весь код — в Git и на GitHub с первого дня.</li>
+<li>Go — направление минимум до конца весенней сессии. Сменить его можно, только если прошло 4+ недели реальной работы, причина — в опыте, а не в ролике или «стало сложно», и решение сначала разобрано здесь, а не принято в моменте.</li>
+<li>Сессия важнее roadmap. В зачётную неделю допустимо остаться только на алгоритмах.</li>
+<li>Если набор на стажировку открылся раньше, чем пройдены все этапы, — подаёшься всё равно. Контест проверяет этапы 1–4.</li>
+</ul>
+<h2>Что требуют компании</h2>
+<p>Сводка по открытым вакансиям стажёров и джунов на Go и разборам отборов (октябрь 2026). Официальные вакансии отмечены ссылкой на hh или Хабр Карьеру; остальное — из гайдов-агрегаторов, их детали могут быть неточными. Перед подачей всегда сверяйся с официальной страницей набора.</p>
+<div class="table-wrap"><table><thead><tr><th>Компания</th><th>Go у стажёров</th><th>Что требуют и спрашивают</th></tr></thead><tbody>
+<tr><td>Т-Банк</td><td>Есть отдельная <a href="https://hh.ru/vacancy/135923776" target="_blank" rel="noopener noreferrer">вакансия стажёра Go</a></td><td>Основы Go или готовность учить, структуры данных и алгоритмы, принципы работы БД. На отборе — многопоточность и транзакции БД; бэкенд-треки Java, Go и Python</td></tr>
+<tr><td>Авито</td><td>Бэкенд на Go или Python</td><td>Golang или Python, SQL и REST. Спрашивают горутины, планировщик, интерфейсы</td></tr>
+<tr><td>Ozon</td><td>Большинство сервисов на Go</td><td>Глубокие вопросы по планировщику и сборщику мусора, Kafka упоминают даже для джунов. Есть школа Route 256 по Go</td></tr>
+<tr><td>Wildberries</td><td>Go — основной язык бэкенда</td><td>Go, PostgreSQL, Redis; плюсом Kafka и gRPC. Смотрят на GitHub: код с тестами, а не только учебные задачи</td></tr>
+<tr><td>VK</td><td>Go — основной язык новых микросервисов</td><td>Go, PostgreSQL, Redis, Kafka. Вопросы про устройство map, GC и конкурентность, задачи на сложность алгоритмов</td></tr>
+<tr><td>МТС</td><td>Go для высоконагруженных систем</td><td>Go, gRPC, PostgreSQL; плюсом Kafka, Redis. Пример <a href="https://career.habr.com/vacancies/1000107691" target="_blank" rel="noopener noreferrer">джуна на Go</a>: от 6 месяцев опыта веб-разработки на Go и реляционные БД</td></tr>
+<tr><td>Яндекс</td><td>Один из языков бэкенд-стажировки</td><td>Знание C++, Python, Java или Go и <a href="https://career.habr.com/vacancies/1000085493" target="_blank" rel="noopener noreferrer">отличное знание алгоритмов и структур данных</a>; от 20 часов в неделю</td></tr>
+<tr><td>Касперский (SafeBoard)</td><td>Go среди направлений</td><td>Стажировка для студентов любых курсов, 20–35 часов в неделю в учёбу</td></tr>
+<tr><td>Сбер</td><td>Стажировок именно на Go не нашёл</td><td>Go-вакансии — для опытных: SQL, Kafka, Redis, юнит-тесты, REST/gRPC, профилирование. Основной стажёрский трек — Java</td></tr>
+<tr><td>Альфа-Банк</td><td>Стажировок на Go не нашёл</td><td>Go используется в digital-подразделении, но вакансии от 2 лет опыта</td></tr>
+<tr><td>Т1</td><td>Стажировок на Go не нашёл</td><td>Основной бэкенд-трек стажировок и школ — Java</td></tr>
+</tbody></table></div>
+<blockquote><p><strong>Общее ядро, которое встречается почти везде:</strong></p></blockquote>
+<ol>
+<li>Алгоритмы и структуры данных — первый фильтр.</li>
+<li>Go: слайсы, мапы, интерфейсы, ошибки — и как они устроены внутри.</li>
+<li>Конкурентность: горутины, каналы, <code>sync</code>, <code>context</code>, планировщик на уровне идеи.</li>
+<li>SQL и PostgreSQL: запросы, индексы, транзакции и уровни изоляции.</li>
+<li>HTTP, REST, а дальше — gRPC, Redis, Kafka на базовом уровне.</li>
+<li>Проект на GitHub с тестами.</li>
+</ol>
+<p>Главные цели для тебя — <strong>Т-Банк, Авито, Ozon, WB, VK, МТС, Яндекс</strong>: у них Go-бэкенд массовый и стажёров на него берут. Сбер, Альфа и Т1 — запасные, их Go-наборы проверяй при открытии.</p>
+<h2>Этап 0. Рабочее место</h2>
+<p>Цель — настроить окружение для Go. Git и GitHub у тебя уже есть с Java-этапа, поэтому этап короткий.</p>
+<p><strong>Изучить:</strong> установка Go последней версии, редактор VS Code с официальным расширением Go (подсказки, форматирование, отладчик Delve), модули (<code>go mod init</code>, <code>go get</code>, <code>go.mod</code>/<code>go.sum</code>), команды <code>go run</code>, <code>go build</code>, <code>go test</code>, <code>go vet</code>, форматирование <code>gofmt</code>, линтер golangci-lint.</p>
+<blockquote><p><strong>Почему VS Code:</strong> GoLand от JetBrains платный, а VS Code с расширением Go бесплатный и делает всё, что нужно на этом пути.</p></blockquote>
+<p><strong>Должен уметь:</strong></p>
+<ul>
+<li class="task"><label><input type="checkbox" data-check="roadmap-0" checked><span>Вести репозиторий: ветки, осмысленные коммиты, <code>.gitignore</code>, README</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-1" checked><span>Создать модуль, подключить внешнюю библиотеку и собрать бинарник</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-2" checked><span>Запустить программу под отладчиком: точка останова, шаги, просмотр переменных</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-3" checked><span>Запустить <code>gofmt</code>, <code>go vet</code> и golangci-lint и исправить то, что они нашли</span></label></li>
+</ul>
+<h2>Этап 1. Основы Go</h2>
+<p>Цель — уверенно писать на Go и понимать, чем его модель отличается от Java. Go ты уже трогал, поэтому фокус не на синтаксисе, а на том, что у Go своё: слайсы, ошибки как значения, неявные интерфейсы, указатели.</p>
+<p><strong>Изучить:</strong></p>
+<ul>
+<li>Типы, переменные, константы, <code>iota</code>, нулевые значения</li>
+<li>Функции: несколько возвращаемых значений, замыкания, функции как значения</li>
+<li>Ошибки как значения: <code>if err != nil</code>, создание своих ошибок</li>
+<li>Структуры, методы, ресиверы по значению и по указателю</li>
+<li>Указатели: когда нужны и что происходит при передаче в функцию</li>
+<li>Массивы и слайсы: <code>len</code>, <code>cap</code>, <code>append</code>, общий базовый массив, <code>copy</code></li>
+<li>Мапы: создание, проверка наличия ключа, случайный порядок обхода</li>
+<li>Строки, байты и руны: почему <code>len("Привет")</code> не равно 6</li>
+<li>Интерфейсы: неявная реализация, <code>any</code>, приведение и switch по типу</li>
+<li>Встраивание структур вместо наследования</li>
+<li><code>defer</code>, <code>panic</code>, <code>recover</code></li>
+<li>Пакеты, видимость (заглавная буква), модули</li>
+</ul>
+<p><strong>Должен уметь:</strong></p>
+<ul>
+<li class="task"><label><input type="checkbox" data-check="roadmap-4" checked><span>Объяснить, как устроен слайс (указатель, длина, ёмкость) и предсказать результат <code>append</code> в хитрых случаях</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-5" checked><span>Объяснить разницу между ресивером по значению и по указателю и выбрать правильный. <strong>Что нужно уметь сказать:</strong> с ресивером по значению метод получает копию и не может изменить оригинал, с ресивером по указателю работает с самой структурой. Указатель берут, если метод меняет поля, если структура большая или в ней есть то, что нельзя копировать (например, <code>sync.Mutex</code>); иначе — значение, и внутри одного типа не смешивают. <strong>Ловушка:</strong> методы на <code>*T</code> не входят в набор методов <code>T</code>, поэтому значение <code>T</code> может не удовлетворять интерфейсу, а <code>*T</code> — удовлетворяет. Практика — G1.5 и твоя дробь из G1.1. Подробно: Шпаргалка: основы Go, раздел 4.</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-6"><span>Объяснить, как в Go обходятся без наследования: интерфейсы и встраивание. <strong>Что нужно уметь сказать:</strong> полиморфизм делается через интерфейсы — тип реализует их неявно, просто имея нужные методы. Переиспользование кода — через встраивание: поля и методы встроенной структуры доступны снаружи. <strong>Главное отличие от наследования:</strong> <code>Service</code> со встроенным <code>Logger</code> не является <code>Logger</code>, и «переопределения» нет — если метод <code>Logger</code> вызывает другой свой метод, вызовется версия <code>Logger</code>, даже если у <code>Service</code> есть метод с тем же именем. Пример для ответа — фигуры из G1.2 и игроки из G1.8. Подробно: Шпаргалка: основы Go, разделы 9–10.</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-7" checked><span>Обрабатывать ошибки идиоматично, без <code>panic</code> в обычной логике</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-8"><span>Спроектировать небольшую программу из 5–8 типов и интерфейсов без подсказок</span></label></li>
+</ul>
+<p><strong>Задачи:</strong> G1.1–G1.8 во вкладке «Задачник».</p>
+<blockquote><p><strong>Почему здесь:</strong> вопросы про слайсы, мапы и интерфейсы есть почти на каждом собеседовании Go-стажёра. Это база, на которой стоит всё остальное.</p></blockquote>
+<p><strong>Ресурсы:</strong></p>
+<ul>
+<li><a href="https://stepik.org/course/284645/promo" target="_blank" rel="noopener noreferrer">«Твой Golang — Продвинутый»</a>, Павел Тарасов — твой курс, но это <strong>второй уровень</strong> после базового курса автора: внутреннее устройство языка и рантайма. Для этапа 1 он рановат. Проверь себя задачами G1.1–G1.4: если решаются легко, базу заново не проходи и переходи к курсу; если нет — сначала «первое знакомство» ниже.</li>
+<li><a href="https://stepik.org/course/100208" target="_blank" rel="noopener noreferrer">«Go (Golang) — первое знакомство»</a> — бесплатный курс на Stepik с большим числом отзывов. Запасной, если в основном курсе что-то объяснено плохо.</li>
+<li><a href="https://go.dev/tour/" target="_blank" rel="noopener noreferrer">Тур по Go</a> — официальный интерактивный тур от команды Go (англ.). Код запускается прямо в браузере, хорош для быстрой проверки темы.</li>
+<li>Донован, Керниган, «Язык программирования Go» — классическая книга от авторов языка и Unix, есть на русском. Главы про типы, функции, методы и интерфейсы.</li>
+</ul>
+<h2>Этап 2. Go глубже: интерфейсы, ошибки, generics, тесты</h2>
+<p>Цель — писать идиоматичный Go, который не стыдно показать на ревью, и уметь его тестировать. В Go культура тестов очень сильная: код без тестов на собеседовании читается как учебный.</p>
+<p><strong>Изучить:</strong></p>
+<ul>
+<li>Интерфейсы глубже: маленькие интерфейсы, <code>io.Reader</code>/<code>io.Writer</code>, ловушка «nil-интерфейс не равен nil»</li>
+<li>Ошибки: обёртывание через <code>%w</code>, <code>errors.Is</code> и <code>errors.As</code>, свои типы ошибок, sentinel-ошибки</li>
+<li>Generics: параметры типов, ограничения, <code>comparable</code>, когда generics нужны, а когда нет</li>
+<li>Тестирование: пакет <code>testing</code>, табличные тесты, подтесты, бенчмарки, покрытие</li>
+<li>Стандартная библиотека: <code>strings</code>, <code>strconv</code>, <code>bufio</code>, <code>encoding/json</code>, <code>time</code>, <code>sort</code>, пакеты <code>slices</code> и <code>maps</code></li>
+<li>Структура проекта и пакетов, принцип «принимай интерфейсы, возвращай структуры»</li>
+</ul>
+<p><strong>Должен уметь:</strong></p>
+<ul>
+<li class="task"><label><input type="checkbox" data-check="roadmap-9"><span>Объяснить, почему функция может вернуть <code>error</code>, который не равен <code>nil</code>, хотя внутри лежит <code>nil</code>-указатель</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-10"><span>Обернуть ошибку с контекстом и проверить её тип выше по стеку вызовов</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-11"><span>Написать generic-функцию и объяснить, зачем ограничение</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-12"><span>Покрыть свой код табличными тестами и замерить производительность бенчмарком</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-13"><span>Сериализовать структуру в JSON и обратно с тегами полей</span></label></li>
+</ul>
+<p><strong>Задачи:</strong> G2.1–G2.9.</p>
+<blockquote><p><strong>Почему после этапа 1:</strong> идиомы Go — это способ сочетать базовые конструкции. Без уверенных слайсов, мап и интерфейсов они превращаются в набор правил без понимания.</p></blockquote>
+<p><strong>Ресурсы:</strong></p>
+<ul>
+<li><a href="https://stepik.org/course/284645/promo" target="_blank" rel="noopener noreferrer">«Твой Golang — Продвинутый»</a> — основной курс начиная с этого этапа: устройство слайсов, мап и интерфейсов, эффективный код. Проходи его параллельно с задачами G2, а не вместо них.</li>
+<li><a href="https://go.dev/doc/effective_go" target="_blank" rel="noopener noreferrer">Effective Go</a> — официальный текст о том, как писать на Go правильно (англ., читай с переводчиком).</li>
+<li><a href="https://quii.gitbook.io/learn-go-with-tests" target="_blank" rel="noopener noreferrer">Learn Go with Tests</a> — учебник, где каждая тема изучается через тесты (англ.). Лучший способ привыкнуть к тестам с самого начала.</li>
+<li>Харшани, «100 ошибок Go и как их избежать» — есть на русском. Разбор типичных ловушек со слайсами, мапами, интерфейсами и горутинами. Почти все они — вопросы собеседований.</li>
+<li><a href="https://career.habr.com/courses/5205-thank-go-golang-na-praktike" target="_blank" rel="noopener noreferrer">«Thank Go! Golang на практике»</a> — Stepik, много сложных практических задач. Хорош, когда основы уже есть.</li>
+</ul>
+<h2>Этап 3. SQL и PostgreSQL</h2>
+<p>Цель — уверенно писать запросы, понимать, как устроена реляционная база, и работать с ней из Go. PostgreSQL указан почти в каждой Go-вакансии, а вопросы про индексы и уровни изоляции задают даже стажёрам.</p>
+<p><strong>Изучить:</strong></p>
+<ul>
+<li>Реляционная модель: таблицы, первичные и внешние ключи, связи 1:1, 1:N, N:M</li>
+<li><code>SELECT</code>, <code>WHERE</code>, <code>ORDER BY</code>, <code>LIMIT</code>, агрегаты, <code>GROUP BY</code>, <code>HAVING</code></li>
+<li>Все виды <code>JOIN</code>, подзапросы, <code>EXISTS</code>, CTE (<code>WITH</code>)</li>
+<li>Оконные функции: <code>ROW_NUMBER</code>, <code>RANK</code>, <code>SUM() OVER</code>, <code>LAG</code></li>
+<li>DDL и ограничения: <code>CREATE TABLE</code>, <code>NOT NULL</code>, <code>UNIQUE</code>, <code>CHECK</code></li>
+<li>Нормальные формы до 3НФ</li>
+<li>Индексы: B-tree, когда помогают и когда мешают, <code>EXPLAIN ANALYZE</code></li>
+<li>Транзакции: ACID, уровни изоляции, аномалии, <code>SELECT ... FOR UPDATE</code></li>
+<li>Go и база: драйвер pgx, пул соединений, запросы с параметрами <code>$1</code>, транзакции с <code>defer tx.Rollback</code>, <code>context</code> в запросах</li>
+</ul>
+<p><strong>Должен уметь:</strong></p>
+<ul>
+<li class="task"><label><input type="checkbox" data-check="roadmap-14"><span>Спроектировать схему БД под задачу (5–7 таблиц) с правильными связями и ключами</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-15"><span>Написать запрос с несколькими <code>JOIN</code>, группировкой и <code>HAVING</code> без подсказок</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-16"><span>Решить задачу «топ-N в каждой группе» через оконную функцию</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-17"><span>Объяснить, почему индекс ускоряет поиск и замедляет вставку</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-18"><span>Объяснить уровни изоляции и какую аномалию предотвращает каждый</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-19"><span>Выполнить транзакцию из Go и откатить её при ошибке</span></label></li>
+</ul>
+<p><strong>Задачи:</strong> S3.1–S3.12.</p>
+<blockquote><p><strong>Почему здесь:</strong> в Go не принято прятать SQL за тяжёлой ORM, как в Spring. Ты будешь писать запросы руками, поэтому SQL нужен на уровне, а не «примерно».</p></blockquote>
+<p><strong>Ресурсы:</strong></p>
+<ul>
+<li><a href="https://stepik.org/course/63054" target="_blank" rel="noopener noreferrer">«Интерактивный тренажёр по SQL»</a> — Stepik, бесплатно, рейтинг 4,9. Основной источник практики, всё работает в браузере.</li>
+<li><a href="https://postgrespro.ru/education/books" target="_blank" rel="noopener noreferrer">Книги Postgres Professional</a> — бесплатные PDF на русском. Начни с «Postgres: первое знакомство», потом «PostgreSQL. Основы языка SQL» Моргунова.</li>
+<li><a href="https://postgrespro.ru/education/books/internals" target="_blank" rel="noopener noreferrer">«PostgreSQL 17 изнутри»</a>, Е. Рогов — только части про изоляцию, блокировки и индексы.</li>
+<li><a href="https://sql-academy.org" target="_blank" rel="noopener noreferrer">sql-academy.org</a> — тренажёр задач, запасной вариант, если Stepik недоступен.</li>
+<li><a href="https://github.com/jackc/pgx" target="_blank" rel="noopener noreferrer">pgx на GitHub</a> — драйвер PostgreSQL для Go, README с примерами (англ.).</li>
+</ul>
+<h2>Этап 4. Алгоритмы и структуры данных (сквозной трек)</h2>
+<p>Цель — проходить вступительные контесты и алгоритмическую секцию. Этот этап идёт параллельно со всеми остальными с первого дня. Яндекс прямо пишет в вакансиях стажёров про отличное знание алгоритмов, у остальных первый фильтр — тоже контест.</p>
+<blockquote><p><strong>Почему отдельный трек:</strong> проваливают контест не из-за незнания Go, а из-за отсутствия практики в задачах. 1–2 задачи в день дают больше, чем 15 раз в неделю.</p></blockquote>
+<p><strong>Изучить (по порядку):</strong></p>
+<ol>
+<li>Оценка сложности: O-нотация по времени и памяти</li>
+<li>Массивы и строки: два указателя, префиксные суммы</li>
+<li>Хеш-таблицы: подсчёт, поиск пар, группировка</li>
+<li>Скользящее окно</li>
+<li>Сортировки: как работают quicksort и mergesort, сортировка с компаратором</li>
+<li>Бинарный поиск, в том числе по ответу</li>
+<li>Стек и очередь, монотонный стек</li>
+<li>Связные списки</li>
+<li>Деревья: обходы, рекурсия, BST</li>
+<li>Графы: BFS, DFS, топологическая сортировка</li>
+<li>Куча: топ-K, слияние K списков</li>
+<li>Динамическое программирование: базовые задачи</li>
+</ol>
+<p><strong>Особенности Go в задачах:</strong> множества делаются через <code>map[T]struct{}</code>, кучи — через <code>container/heap</code>, сортировка — <code>sort.Slice</code> или <code>slices.SortFunc</code>, строки собираются в <code>strings.Builder</code>, на контестах ввод читается через <code>bufio</code>, иначе можно не уложиться по времени.</p>
+<p><strong>Должен уметь:</strong></p>
+<ul>
+<li class="task"><label><input type="checkbox" data-check="roadmap-20"><span>Оценить сложность решения до того, как писать код</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-21"><span>Решать LeetCode Easy за 15–20 минут, Medium — за 30–40</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-22"><span>Определять паттерн задачи по условию</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-23"><span>Писать решение без подсказок IDE и сразу компилируемым</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-24"><span>Проговаривать решение вслух, как на собеседовании</span></label></li>
+</ul>
+<p><strong>Задачи:</strong> A4 во вкладке «Задачник». Ориентир к подаче: 120–150 задач, половина Medium.</p>
+<p><strong>Ресурсы:</strong></p>
+<ul>
+<li><a href="https://academy.yandex.ru/handbook" target="_blank" rel="noopener noreferrer">Хендбуки Академии Яндекса</a> — бесплатный учебник по алгоритмам на русском, с задачами и автопроверкой. Задачи решаешь на Go.</li>
+<li><a href="https://yandex.ru/yaintern/training" target="_blank" rel="noopener noreferrer">Тренировки по алгоритмам от Яндекса</a> — бесплатный интенсив на 4 недели. Записи прошлых сезонов доступны, лучшим участникам дают пропуск отбора на стажировку.</li>
+<li><a href="https://leetcode.com" target="_blank" rel="noopener noreferrer">LeetCode</a> — основная площадка для задач из задачника, Go там поддерживается.</li>
+<li>Бхаргава, «Грокаем алгоритмы» — лёгкая книга для интуиции.</li>
+</ul>
+<h2>Этап 5. Конкурентность в Go</h2>
+<p>Цель — писать корректный конкурентный код и понимать, что ломается, когда его нет. Это главная тема Go-собеседований: горутины, каналы и синхронизацию спрашивают в Т-Банке, Авито, Ozon, VK, МТС и Яндексе.</p>
+<p><strong>Изучить:</strong></p>
+<ul>
+<li>Горутины: запуск, чем отличаются от потоков ОС</li>
+<li>Каналы: буферизованные и небуферизованные, закрытие, <code>range</code> по каналу, поведение nil-канала и закрытого канала</li>
+<li><code>select</code>: несколько каналов, таймауты, <code>default</code></li>
+<li>Пакет <code>sync</code>: <code>Mutex</code>, <code>RWMutex</code>, <code>WaitGroup</code>, <code>Once</code>; пакет <code>sync/atomic</code></li>
+<li><code>context</code>: отмена, таймауты, передача по цепочке вызовов</li>
+<li>Гонки данных и детектор <code>go run -race</code></li>
+<li>Дедлоки и утечки горутин: как возникают и как находить</li>
+<li>Паттерны: worker pool, pipeline, fan-out/fan-in, ограничение параллельности семафором, <code>errgroup</code></li>
+</ul>
+<p><strong>Должен уметь:</strong></p>
+<ul>
+<li class="task"><label><input type="checkbox" data-check="roadmap-25"><span>Найти гонку через <code>-race</code> и исправить её тремя способами: мьютекс, атомик, канал</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-26"><span>Объяснить, что будет при чтении и записи в закрытый и nil-канал</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-27"><span>Написать worker pool и pipeline с корректным завершением всех горутин</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-28"><span>Остановить группу горутин через <code>context</code> и не оставить утечек</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-29"><span>Объяснить, когда выбрать канал, а когда мьютекс</span></label></li>
+</ul>
+<p><strong>Задачи:</strong> G5.1–G5.8.</p>
+<blockquote><p><strong>Почему здесь, а не позже:</strong> конкурентность — то, ради чего Go выбирают компании. Её ставим раньше веба, потому что любой HTTP-сервер на Go обрабатывает запросы в горутинах, и без этой темы не понять, где у тебя гонка.</p></blockquote>
+<p><strong>Ресурсы:</strong></p>
+<ul>
+<li><a href="https://stepik.org/course/284645/promo" target="_blank" rel="noopener noreferrer">«Твой Golang — Продвинутый»</a> — основной курс этапа: асинхронность в нём разбирается на уровне устройства, а именно это и спрашивают на собеседованиях.</li>
+<li>Харшани, «100 ошибок Go и как их избежать» — главы про конкурентность. Лучший разбор того, где люди ошибаются.</li>
+<li>Кэтрин Кокс-Будэй, «Concurrency in Go» — главная книга по теме, ищи русское издание «Конкурентность в Go».</li>
+<li><a href="https://go.dev/blog/pipelines" target="_blank" rel="noopener noreferrer">Go Concurrency Patterns: Pipelines</a> — официальная статья о pipeline и fan-out/fan-in (англ.).</li>
+<li>Доклад Роба Пайка «Concurrency is not Parallelism» — ищи на YouTube. Короткое объяснение идеи конкурентности в Go от одного из авторов языка (англ.).</li>
+</ul>
+<h2>Этап 6. Как Go устроен внутри</h2>
+<p>Цель — понимать, что происходит под капотом встроенных типов и рантайма. По разборам отборов, Ozon, МТС, Авито и VK спрашивают устройство планировщика, мап и сборщика мусора даже у стажёров.</p>
+<p><strong>Изучить:</strong></p>
+<ul>
+<li>Слайс изнутри: заголовок слайса, рост ёмкости при <code>append</code>, утечка памяти через подслайс большого массива</li>
+<li>Мапа изнутри: с Go 1.24 мапы устроены как Swiss Tables (группы слотов с управляющими байтами). Старую схему с бакетами и эвакуацией тоже знай — по ней всё ещё часто спрашивают. Плюс: почему нельзя взять адрес элемента и почему мапа не потокобезопасна</li>
+<li>Интерфейс изнутри: пара «тип + значение», откуда берётся nil-ловушка</li>
+<li>Строки и руны: неизменяемость, конвертация в <code>[]byte</code></li>
+<li>Каналы изнутри на уровне идеи: очередь и ожидающие горутины</li>
+<li>Планировщик: модель G-M-P, <code>GOMAXPROCS</code>, что происходит при блокирующем вызове</li>
+<li>Память: стек и куча, escape analysis (<code>go build -gcflags=-m</code>)</li>
+<li>Сборщик мусора: конкурентный mark &amp; sweep, трёхцветная маркировка на уровне идеи</li>
+<li>Профилирование: pprof для CPU и памяти</li>
+</ul>
+<p><strong>Должен уметь:</strong></p>
+<ul>
+<li class="task"><label><input type="checkbox" data-check="roadmap-30"><span>Нарисовать устройство слайса и мапы и объяснить их поведение в хитрых случаях</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-31"><span>Объяснить модель G-M-P своими словами</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-32"><span>Определить по выводу escape analysis, что уходит в кучу и почему</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-33"><span>Объяснить, как работает GC, без деталей реализации</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-34"><span>Снять профиль своей программы и найти горячее место</span></label></li>
+</ul>
+<p><strong>Задачи:</strong> G6.1–G6.4.</p>
+<blockquote><p><strong>Почему после конкурентности:</strong> планировщик и каналы изнутри понятны, только когда ты уже писал горутины и ловил на них ошибки.</p></blockquote>
+<p><strong>Ресурсы:</strong></p>
+<ul>
+<li><a href="https://stepik.org/course/284645/promo" target="_blank" rel="noopener noreferrer">«Твой Golang — Продвинутый»</a> — основной курс этапа: слайсы, мапы на Swiss Tables, интерфейсы и рантайм — ровно темы этого этапа.</li>
+<li>Харшани, «100 ошибок Go и как их избежать» — главы про слайсы, мапы и производительность.</li>
+<li>Доклады с конференции Golang Conf — ищи на YouTube по темам «планировщик Go», «устройство map в Go», «GC в Go». Многие на русском.</li>
+<li>Статьи на Хабре по запросам «устройство map в Go», «планировщик Go GMP», «escape analysis Go». Выбирай свежие, Go заметно меняется между версиями.</li>
+<li><a href="https://go.dev/doc/gc-guide" target="_blank" rel="noopener noreferrer">A Guide to the Go Garbage Collector</a> — официальное руководство по GC (англ.). Только первые разделы.</li>
+<li><a href="https://go.dev/blog/pprof" target="_blank" rel="noopener noreferrer">Profiling Go Programs</a> — официальная статья про pprof (англ.).</li>
+</ul>
+<h2>Этап 7. Веб-бэкенд на Go</h2>
+<p>Цель — писать HTTP-сервис на Go так, как его пишут в командах: слои, интерфейсы, тесты, корректное завершение. В отличие от Java, в Go нет одного главного фреймворка, и компании ценят, когда ты понимаешь стандартную библиотеку, а не только обёртку над ней.</p>
+<p><strong>Изучить (по порядку):</strong></p>
+<ol>
+<li>HTTP: методы, статус-коды, заголовки, идемпотентность; что такое REST</li>
+<li><code>net/http</code>: сервер, обработчики, маршрутизация с методами и параметрами пути, клиент с таймаутами</li>
+<li>Роутер chi и middleware: логирование, recover, request ID</li>
+<li>JSON в API: DTO, валидация входных данных, единый формат ошибок</li>
+<li>Слоистая архитектура: handler → service → repository, зависимости через интерфейсы и конструкторы</li>
+<li>Работа с БД через слой repository и pgx, транзакции на уровне сервиса</li>
+<li>Конфигурация из переменных окружения, логирование через <code>log/slog</code></li>
+<li>Graceful shutdown: остановка по сигналу с <code>context</code></li>
+<li>Тесты: моки через интерфейсы, <code>httptest</code> для обработчиков, интеграционные тесты с testcontainers-go</li>
+<li>Документация API: OpenAPI/Swagger</li>
+<li>Аутентификация: JWT, middleware авторизации</li>
+<li>gRPC и Protocol Buffers на базовом уровне — их упоминают МТС и WB</li>
+</ol>
+<p><strong>Должен уметь:</strong></p>
+<ul>
+<li class="task"><label><input type="checkbox" data-check="roadmap-35"><span>Написать CRUD REST API с валидацией, правильными статус-кодами и единым форматом ошибок</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-36"><span>Разложить код по слоям и объяснить, зачем интерфейс между сервисом и репозиторием</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-37"><span>Протестировать обработчики через <code>httptest</code>, а сервис — с моком репозитория</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-38"><span>Корректно останавливать сервер: дождаться текущих запросов и закрыть соединения с БД</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-39"><span>Объяснить, чем gRPC отличается от REST и когда что выбирают</span></label></li>
+</ul>
+<p><strong>Задачи:</strong> W7.1–W7.9.</p>
+<blockquote><p><strong>Почему так поздно:</strong> веб-сервис собирает всё предыдущее: интерфейсы, ошибки, SQL, горутины, <code>context</code>. Без этой базы получится копия туториала, которую не сможешь объяснить на собеседовании.</p></blockquote>
+<p><strong>Ресурсы:</strong></p>
+<ul>
+<li><a href="https://stepik.org/course/284645/promo" target="_blank" rel="noopener noreferrer">«Твой Golang — Продвинутый»</a> — блоки про backend и HTTP-серверы. Основной источник этапа, остальное ниже — дополнение.</li>
+<li>YouTube-канал Николая Тузова — ищи по имени. Бесплатные видео на русском, как написать REST-сервис на Go с нуля. Повторять один в один не стоит: этот проект копируют тысячи людей, бери идеи, а не код.</li>
+<li><a href="https://go.dev/doc/tutorial/web-service-gin" target="_blank" rel="noopener noreferrer">Официальный туториал по веб-сервису</a> — короткий пример REST API от команды Go (англ.).</li>
+<li><a href="https://github.com/go-chi/chi" target="_blank" rel="noopener noreferrer">chi на GitHub</a> — роутер, README с примерами middleware (англ.).</li>
+<li><a href="https://golang.testcontainers.org/" target="_blank" rel="noopener noreferrer">Testcontainers для Go</a> — интеграционные тесты с настоящим PostgreSQL в Docker (англ.).</li>
+<li><a href="https://grpc.io/docs/languages/go/quickstart/" target="_blank" rel="noopener noreferrer">gRPC Quick Start для Go</a> — официальный старт (англ.).</li>
+<li>Алекс Эдвардс, «Let's Go» — платная книга о веб-приложениях на чистом Go (англ.). Лучшая по теме, если захочешь глубже.</li>
+</ul>
+<h2>Этап 8. Инфраструктура</h2>
+<p>Цель — чтобы сервис запускался у любого одной командой, проверялся автоматически и использовал Redis и Kafka, которые есть почти в каждой Go-вакансии. Для стажёра хватит базового уровня, но не нулевого.</p>
+<p><strong>Изучить:</strong></p>
+<ul>
+<li>Docker: образ, контейнер, многоэтапная сборка Go-бинарника в маленький образ</li>
+<li>Docker Compose: сервис + PostgreSQL + Redis одной командой</li>
+<li>Миграции БД: goose или golang-migrate</li>
+<li>Linux на уровне пользователя: навигация, права, процессы, <code>curl</code></li>
+<li>CI на GitHub Actions: <code>go test</code>, <code>go vet</code>, golangci-lint на каждый push</li>
+<li>Redis: кеш, время жизни ключей, инвалидация</li>
+<li>Kafka на базовом уровне: топик, партиция, продюсер, консьюмер, группа консьюмеров</li>
+<li>Метрики и логи на уровне идеи: что такое Prometheus и зачем структурированные логи</li>
+</ul>
+<p><strong>Должен уметь:</strong></p>
+<ul>
+<li class="task"><label><input type="checkbox" data-check="roadmap-40"><span>Упаковать Go-сервис в образ на 20–30 МБ и объяснить, зачем многоэтапная сборка</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-41"><span>Поднять сервис с базой и Redis через <code>docker compose up</code> на чистой машине</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-42"><span>Изменить схему БД миграцией без потери данных</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-43"><span>Настроить CI, который гоняет тесты и линтер</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-44"><span>Написать простой продюсер и консьюмер для Kafka и объяснить, зачем нужен брокер сообщений</span></label></li>
+</ul>
+<p><strong>Задачи:</strong> I8.1–I8.6.</p>
+<p><strong>Ресурсы:</strong></p>
+<ul>
+<li><a href="https://stepik.org/course/253174" target="_blank" rel="noopener noreferrer">«Знакомство с Docker»</a> — Stepik, бесплатно, 2–4 часа: контейнеры, Dockerfile и Compose.</li>
+<li><a href="https://docs.docker.com/get-started/" target="_blank" rel="noopener noreferrer">Get Started от Docker</a> — официальное руководство (англ.), запасной вариант без Stepik.</li>
+<li><a href="https://github.com/pressly/goose" target="_blank" rel="noopener noreferrer">goose на GitHub</a> — миграции для Go, README с примерами (англ.).</li>
+<li><a href="https://golangci-lint.run" target="_blank" rel="noopener noreferrer">golangci-lint</a> — документация линтера и пример настройки в CI (англ.).</li>
+<li><a href="https://github.com/segmentio/kafka-go" target="_blank" rel="noopener noreferrer">kafka-go на GitHub</a> — простая библиотека Kafka для Go, в README есть рабочие примеры продюсера и консьюмера (англ.).</li>
+</ul>
+<h2>Этап 9. Пет-проект</h2>
+<p>Цель — один законченный проект, который ты защитишь от и до. Он усиливает заявку, но не заменяет отклик и не должен задерживать подготовку к контесту.</p>
+<p>Главный кандидат — твой yt_vid_search: он уже на Go, и в него естественно ложатся горутины, PostgreSQL и работа с внешним API. Развивай его по мере освоения этапов 7–8; не жди готовности проекта, чтобы подаваться. Требования и идеи — во вкладке «Пет-проекты».</p>
+<p><strong>Должен уметь:</strong></p>
+<ul>
+<li class="task"><label><input type="checkbox" data-check="roadmap-45"><span>Проект соответствует чек-листу «Каким должен быть пет-проект»</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-46"><span>Можешь за 3 минуты рассказать, что делает проект и какие решения ты принимал</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-47"><span>Можешь ответить на «почему так, а не иначе» по любому месту в коде</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-48"><span>Можешь назвать, что бы ты переделал и почему</span></label></li>
+</ul>
+<p><strong>Ресурсы:</strong> вкладка «Пет-проекты» и ресурсы этапов 7–8 — отдельных курсов «по пет-проектам» не нужно.</p>
+<h2>Этап 10. Подготовка к отбору</h2>
+<p>Цель — превратить знания в оффер. Контест и собеседование — отдельный навык, поэтому первый отбор лучше не делать единственным.</p>
+<p><strong>Что сделать:</strong></p>
+<ul>
+<li class="task"><label><input type="checkbox" data-check="roadmap-49"><span>Сейчас: проверить открытые наборы и требования на официальных страницах; подать заявки, если проходишь формальные условия, не ожидая этапов 1–5 или готового пет-проекта</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-50"><span>Подписаться на каналы стажировок Т-Банка, Авито, Ozon, WB, VK, МТС и Яндекса, чтобы не пропустить следующие наборы</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-51"><span>После каждого этапа: прогнать вслух соответствующие вопросы из раздела «Вопросы к собеседованию» в «Задачнике»</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-52"><span>Резюме на одну страницу: стек, пет-проект со ссылкой на GitHub, вуз, курс, сколько часов в неделю готов работать</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-53"><span>GitHub в порядке: закреплённые репозитории, README, тесты, зелёный CI</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-54"><span>2–3 пробных контеста в формате отбора: по времени, без подсказок</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-55"><span>1–2 пробных собеседования: с другом или с Claude в роли интервьюера по Go</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="roadmap-56"><span>Подать заявки сразу в несколько компаний из главных целей, а не в одну</span></label></li>
+</ul>
+<blockquote><p><strong>Важно:</strong> стажировки обычно требуют от 20 часов в неделю. Если набор совпадает с семестром, честно оцени, не пострадает ли сессия. Летние потоки безопаснее для цели «две сессии без троек».</p></blockquote>
+<p><strong>Ресурсы:</strong></p>
+<ul>
+<li><a href="https://yandex.ru/yaintern/training" target="_blank" rel="noopener noreferrer">Тренировки по алгоритмам от Яндекса</a> — финальный забег на время хорошо имитирует контест отбора.</li>
+<li><a href="https://kod.ru/route-256-ozon-tech" target="_blank" rel="noopener noreferrer">Route 256 от Ozon</a> — школа Go-разработки от Ozon Tech с отбором. Следи за набором: это прямой путь в Go-команды Ozon.</li>
+<li><a href="https://yandex.ru/yaintern/backend" target="_blank" rel="noopener noreferrer">Бэкенд-стажировка в Яндексе</a> — на 29 октября 2026 страница показывает набор открытым. Проверь условия и откликайся, если подходишь; не жди этапов roadmap.</li>
+<li>Набор Авито: <a href="https://techora.ru/news/aleksandr-kuznetsov-anonsiroval-stazhirovku-v-avito-2026-08-19" target="_blank" rel="noopener noreferrer">в 2026 заявки принимали до конца августа</a>, программа длилась девять месяцев. Следующий набор жди летом.</li>
+</ul></section>
+  <section class="document" id="panel-projects" role="tabpanel" aria-labelledby="tab-projects" data-doc="projects" data-title="Пет-проекты" data-total="40" hidden><p>Нужен один законченный проект, а не пять начатых. На собеседовании проект смотрят ради одного вопроса: понимает ли человек, что он написал и почему так.</p>
+<h2>Короткая разминка: свой Redis (mini-redis)</h2>
+<p>Это учебная разминка, а не главный проект для резюме. Ограничь её <strong>3–5 учебными днями</strong>: цель — разобраться с TCP, RESP, тестами и безопасной работой с общей map, а затем переключиться на основной backend-проект. Не откладывай из-за неё отклики на стажировки и подготовку к контестам.</p>
+<p>Для первой версии достаточно RESP2, <code>PING</code>, <code>ECHO</code>, <code>SET</code>, <code>GET</code>, понятных ошибок и тестов парсера/команд. После этого добавь несколько клиентов и защиту хранилища от гонок только если базовая версия уже готова. TTL, сохранение на диск, пароль, лимиты, бенчмарки и полная совместимость с Redis — дополнительные задачи, не критерий готовности к отклику. Главный проект по-прежнему <code>yt_vid_search</code>: он лучше показывает прикладной backend, SQL и работу с внешним источником.</p>
+<h3>Что ты пишешь — сервер, а не клиент</h3>
+<p>Ты пишешь <strong>саму базу данных</strong> — программу, которая запускается, слушает сетевой порт и хранит данные. Клиент писать не нужно: он уже есть, это официальный <code>redis-cli</code> от Redis.</p>
+<p>Аналогия: PostgreSQL — это сервер, а <code>psql</code> или pgAdmin — клиенты к нему. Тут то же самое: ты пишешь свой «маленький PostgreSQL», только проще, а в роли <code>psql</code> выступает готовый <code>redis-cli</code>. Он заработает с твоим сервером, потому что ты реализуешь тот же протокол, что и настоящий Redis.</p>
+<p><strong>Где тут оперативка:</strong> все данные лежат в обычной Go-мапе внутри работающей программы. Пока сервер запущен, они в памяти, поэтому всё быстро. Диск нужен только для резервной копии (версия v4), чтобы данные пережили перезапуск.</p>
+<h3>Что получится на выходе</h3>
+<p>Репозиторий <code>mini-redis</code> на GitHub с сервером, тестами и README. Вот так должен выглядеть финальный результат в двух окнах терминала:</p>
+<pre><code># окно 1 — твой сервер
+$ go run ./cmd/server --port 6380 --requirepass secret
+mini-redis listening on 127.0.0.1:6380, loaded 3 keys from dump
+
+# окно 2 — готовый клиент Redis
+$ redis-cli -p 6380
+127.0.0.1:6380&gt; AUTH secret
+OK
+127.0.0.1:6380&gt; SET user:1 Roman EX 60
+OK
+127.0.0.1:6380&gt; GET user:1
+"Roman"
+127.0.0.1:6380&gt; TTL user:1
+(integer) 57
+127.0.0.1:6380&gt; INCR visits
+(integer) 1
+127.0.0.1:6380&gt; GET nothing
+(nil)</code></pre>
+<p>После перезапуска сервера <code>visits</code> никуда не денется, а <code>user:1</code> сам исчезнет через минуту. К твоему серверу также подключается любая Go-программа через библиотеку go-redis, а его скорость можно замерить официальной утилитой <code>redis-benchmark</code>.</p>
+<h3>Как устроен</h3>
+<p>&amp;#91;embedded content: архитектура mini-redis · пакеты и путь команды\]</p>
+<p>Всё, что в рамке «Горутина клиента», работает параллельно для каждого подключения, а <code>storage</code> один на всех — поэтому ему нужен мьютекс.</p>
+<p><strong>Путь одной команды `SET a 1`:</strong></p>
+<ol>
+<li><code>redis-cli</code> превращает команду в байты <code>*3\r\n$3\r\nSET\r\n$1\r\na\r\n$1\r\n1\r\n</code> — это означает «массив из трёх строк: SET, a, 1».</li>
+<li>Горутина этого клиента читает байты из соединения.</li>
+<li><code>resp</code> разбирает их в <code>[]string{"SET", "a", "1"}</code>.</li>
+<li><code>command</code> по первому слову находит функцию-обработчик и проверяет число аргументов.</li>
+<li>Обработчик вызывает <code>storage</code>: под мьютексом кладёт <code>a → "1"</code> в мапу.</li>
+<li><code>resp</code> кодирует ответ <code>+OK\r\n</code>, горутина пишет его обратно в соединение, <code>redis-cli</code> печатает <code>OK</code>.</li>
+</ol>
+<p><strong>Протокол RESP — всё, что нужно для проекта.</strong> Каждая часть сообщения начинается с символа типа и заканчивается переводом строки <code>\r\n</code>:</p>
+<div class="table-wrap"><table><thead><tr><th>Символ</th><th>Что это</th><th>Пример</th><th>Когда встречается</th></tr></thead><tbody>
+<tr><td><code>*</code></td><td>массив</td><td><code>*2\r\n$3\r\nGET\r\n$1\r\na\r\n</code></td><td>так приходят все команды от клиента</td></tr>
+<tr><td><code>+</code></td><td>простая строка</td><td><code>+OK\r\n</code></td><td>ответ на <code>SET</code>, <code>PING</code></td></tr>
+<tr><td><code>-</code></td><td>ошибка</td><td><code>-ERR unknown command 'foo'\r\n</code></td><td>неизвестная команда, неверные аргументы</td></tr>
+<tr><td><code>:</code></td><td>целое число</td><td><code>:1\r\n</code></td><td>ответ на <code>DEL</code>, <code>EXISTS</code>, <code>INCR</code>, <code>TTL</code></td></tr>
+<tr><td><code>$</code></td><td>строка с длиной</td><td><code>$5\r\nRoman\r\n</code></td><td>ответ на <code>GET</code>, <code>ECHO</code></td></tr>
+<tr><td><code>$-1</code></td><td>«ничего» (nil)</td><td><code>$-1\r\n</code></td><td><code>GET</code> несуществующего ключа</td></tr>
+</tbody></table></div>
+<p>Длина после <code>$</code> считается в байтах, а не в буквах: для «Роман» будет <code>$10</code>. Это ровно тема про строки, байты и руны из шпаргалки.</p>
+<h3>Архитектура: заранее или по ходу?</h3>
+<p><strong>Границы — заранее, детали — по ходу.</strong> Из задачи сразу понятно, что в проекте есть четыре разные заботы: сеть, протокол, команды и данные. Они не поменяются, поэтому пакеты под них закладываешь сразу. А какие именно функции и структуры будут внутри каждого пакета, станет ясно по ходу, и это нормально.</p>
+<p>Две типичные ошибки:</p>
+<ul>
+<li>всё в одном <code>main.go</code> на 800 строк — невозможно тестировать и стыдно показать;</li>
+<li>десять интерфейсов «на будущее» до первой работающей команды — сложность без причины.</li>
+</ul>
+<p>Начинай со структуры ниже, но маленькой: в v1 каждый пакет — один файл. Файлы <code>expire.go</code> и папка <code>persist</code> появятся только в v3 и v4.</p>
+<h3>Структура проекта</h3>
+<pre><code>mini-redis/
+├── cmd/
+│   └── server/
+│       └── main.go          // точка входа: флаги, запуск, остановка по Ctrl+C
+├── internal/
+│   ├── resp/                // протокол: байты ↔ команды и ответы
+│   │   ├── reader.go
+│   │   ├── writer.go
+│   │   └── resp_test.go
+│   ├── server/              // сеть: приём соединений, горутина на клиента
+│   │   ├── server.go
+│   │   └── conn.go
+│   ├── command/             // таблица «имя команды → функция»
+│   │   ├── command.go
+│   │   └── command_test.go
+│   ├── storage/             // данные: мапа + мьютекс + срок жизни ключей
+│   │   ├── storage.go
+│   │   ├── expire.go        // появится в v3
+│   │   └── storage_test.go
+│   └── persist/             // сохранение на диск — появится в v4
+│       └── snapshot.go
+├── tests/                   // интеграционные тесты: настоящий сервер + go-redis
+├── go.mod
+└── README.md</code></pre>
+<p>Папка <code>internal/</code> — пакеты внутри неё нельзя импортировать из чужих проектов. Это стандартный способ сказать «это внутренности, не публичная библиотека».</p>
+<h3>Правило зависимостей</h3>
+<p>Зависимости идут только в одну сторону — от сети к данным:</p>
+<ul>
+<li><code>server</code> использует <code>resp</code> и <code>command</code>;</li>
+<li><code>command</code> использует <code>storage</code>;</li>
+<li><code>persist</code> использует <code>storage</code>;</li>
+<li><code>main.go</code> собирает всё вместе.</li>
+</ul>
+<p><code>storage</code> ничего не знает ни о сети, ни о протоколе, а <code>resp</code> ничего не знает о данных. <strong>Зачем:</strong> хранилище можно тестировать без сети, протокол — без данных, и если сломается одна часть, сразу понятно где. Если поймаешь себя на том, что импортируешь <code>server</code> из <code>storage</code> — архитектура поехала, остановись и подумай. Go всё равно запрещает циклические импорты и не скомпилирует такой код.</p>
+<h3>ТЗ по версиям</h3>
+<p>Каждая версия — работающий сервер. Следующую начинаешь, только когда выполнено «готово, когда» у предыдущей. Обязательны v1–v4, v5 — если зайдёт тема защиты.</p>
+<h4>v1 — сервер разговаривает с redis-cli</h4>
+<ul>
+<li class="task"><label><input type="checkbox" data-check="projects-0"><span>TCP-сервер на порту из флага <code>--port</code> (по умолчанию 6380), один клиент за раз</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-1"><span>Пакет <code>resp</code>: чтение команды (массив bulk-строк) и запись всех типов ответов из таблицы RESP</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-2"><span>Команды: <code>PING</code>, <code>ECHO</code>, <code>SET key value</code>, <code>GET key</code>, <code>DEL key [key ...]</code> (возвращает число удалённых), <code>EXISTS key [key ...]</code></span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-3"><span>Неизвестная команда → <code>-ERR unknown command 'xxx'</code>, неверное число аргументов → <code>-ERR wrong number of arguments for 'set' command</code>. Соединение при этом не рвётся, сервер не падает</span></label></li>
+</ul>
+<blockquote><p><strong>Готово, когда:</strong> <code>redis-cli</code> выполняет все команды и ответы совпадают с настоящим Redis; на парсер есть табличные тесты, включая битые данные (обрыв посередине, неверная длина).</p></blockquote>
+<p><strong>Изучить:</strong> пакет <code>net</code> (<code>Listen</code>, <code>Accept</code>, <code>Conn</code>), <code>bufio.Reader</code>, спецификацию RESP.</p>
+<h4>v2 — много клиентов одновременно</h4>
+<ul>
+<li class="task"><label><input type="checkbox" data-check="projects-4"><span>Каждое соединение обслуживается в своей горутине</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-5"><span>Хранилище потокобезопасное: <code>sync.RWMutex</code>, чтение под <code>RLock</code>, запись под <code>Lock</code></span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-6"><span>Команда <code>INCR key</code>; если в ключе не число — <code>-ERR value is not an integer or out of range</code></span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-7"><span>Корректная остановка по Ctrl+C: перестать принимать новых, закрыть соединения, дождаться всех горутин</span></label></li>
+</ul>
+<blockquote><p><strong>Готово, когда:</strong> <code>go test -race</code> проходит чисто; интеграционный тест — 100 клиентов go-redis делают по 1000 <code>INCR</code> одного ключа, и итог ровно 100 000; <code>redis-benchmark</code> проходит без ошибок, результаты записаны в README.</p></blockquote>
+<p><strong>Изучить:</strong> <code>sync.RWMutex</code>, <code>sync.WaitGroup</code>, <code>signal.NotifyContext</code>.</p>
+<h4>v3 — срок жизни ключей</h4>
+<ul>
+<li class="task"><label><input type="checkbox" data-check="projects-8"><span><code>SET key value EX секунды</code> и <code>PX миллисекунды</code>, команды <code>EXPIRE</code>, <code>TTL</code>, <code>PERSIST</code>. <code>TTL</code> возвращает −2, если ключа нет, и −1, если у него нет срока</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-9"><span>Ленивое удаление: при обращении к ключу проверить срок и удалить просроченный</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-10"><span>Активная очистка, как в настоящем Redis: фоновая горутина каждые 100 мс берёт до 20 ключей со сроком и удаляет просроченные; если просроченных оказалось больше четверти — сразу повторяет</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-11"><span>Текущее время хранилище берёт через подменяемую функцию, чтобы в тестах не ждать реальные секунды</span></label></li>
+</ul>
+<blockquote><p><strong>Готово, когда:</strong> ключ с <code>EX 1</code> исчезает; 100 000 ключей с коротким сроком удаляются сами, даже если к ним никто не обращается.</p></blockquote>
+<p><strong>Изучить:</strong> <code>time.Ticker</code>, как Redis удаляет просроченные ключи (описание команды <code>EXPIRE</code> в документации Redis).</p>
+<h4>v4 — сохранение на диск</h4>
+<ul>
+<li class="task"><label><input type="checkbox" data-check="projects-12"><span>Снапшот всего хранилища в файл по команде <code>SAVE</code> и при остановке сервера; при старте — загрузка, просроченные ключи не загружаются</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-13"><span>Атомарная запись: сначала во временный файл, потом <code>os.Rename</code>. Если сервер упадёт посреди записи, старый файл останется целым</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-14"><span>Формат свой: JSON или <code>encoding/gob</code>. Совместимость с файлами настоящего Redis не нужна</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-15"><span><strong>(доп.)</strong> Автоматический снапшот раз в N секунд, если данные менялись</span></label></li>
+</ul>
+<blockquote><p><strong>Готово, когда:</strong> <code>SET</code> → остановить сервер → запустить → <code>GET</code> возвращает то же значение; файл, оборванный на середине, не роняет запуск — сервер пишет ошибку в лог и стартует.</p></blockquote>
+<p><strong>Изучить:</strong> <code>os.CreateTemp</code>, <code>os.Rename</code>, <code>encoding/json</code> или <code>encoding/gob</code>.</p>
+<h4>v5 — защита (кибербез)</h4>
+<p>Реальные Redis-серверы, открытые в интернет без защиты, массово взламывали — например, чтобы майнить криптовалюту. Каждая задача ниже закрывает одну такую дыру.</p>
+<ul>
+<li class="task"><label><input type="checkbox" data-check="projects-16"><span>Пароль: флаг <code>--requirepass</code>; пока клиент не выполнил <code>AUTH</code>, на любую другую команду — <code>-NOAUTH Authentication required.</code> Пароль сравнивается через <code>subtle.ConstantTimeCompare</code>, чтобы его нельзя было угадать по времени ответа</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-17"><span>Лимит размера запроса <code>--max-bulk</code> (по умолчанию 1 МБ): больше — ошибка и закрытие соединения. Иначе один клиент строкой <code>$999999999</code> заставит сервер выделить гигабайты памяти</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-18"><span>Лимит подключений <code>--maxclients</code>: лишние получают <code>-ERR max number of clients reached</code></span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-19"><span>Таймаут простоя <code>--timeout</code>: соединение без команд N секунд закрывается — защита от клиентов, которые держат соединения и ничего не делают</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-20"><span>По умолчанию сервер слушает только <code>127.0.0.1</code>, а не все сетевые интерфейсы</span></label></li>
+</ul>
+<blockquote><p><strong>Готово, когда:</strong> на каждую защиту есть тест-атака: подключение без пароля, гигантский запрос, 1000 соединений, «молчащий» клиент.</p></blockquote>
+<p><strong>Изучить:</strong> <code>crypto/subtle</code>, <code>net.Conn.SetReadDeadline</code>, <code>io.LimitReader</code>.</p>
+<h3>Общие требования</h3>
+<ul>
+<li class="task"><label><input type="checkbox" data-check="projects-21"><span>Сервер написан только на стандартной библиотеке Go. Внешние библиотеки — только в тестах (go-redis как клиент)</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-22"><span>Юнит-тесты для <code>resp</code>, <code>storage</code>, <code>command</code> и интеграционные тесты: сервер запускается в тесте на случайном свободном порту (<code>:0</code>), к нему подключается go-redis</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-23"><span><code>go test -race</code>, <code>go vet</code> и <code>gofmt</code> без замечаний; с v2 — CI на GitHub Actions</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-24"><span>README: что это, как запустить, список команд, схема архитектуры, результаты <code>redis-benchmark</code>, чего нет по сравнению с настоящим Redis и почему</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-25"><span>Коммиты по частям; каждая версия — тег в Git (<code>v1</code>, <code>v2</code>, …), чтобы было видно, как проект рос</span></label></li>
+</ul>
+<blockquote><p><strong>Срок:</strong> не больше 3–5 учебных дней на MVP. Не делай v2–v5 условием перехода к основному проекту или подачи заявок. Возвращайся к расширениям только если они помогают подготовиться к конкретному собеседованию.</p></blockquote>
+<h3>Что подготовить перед стартом</h3>
+<ol>
+<li><code>brew install redis</code> — получишь <code>redis-cli</code> и <code>redis-benchmark</code>. Сам настоящий сервер Redis запускать не нужно. Но можно и полезно: запусти его на стандартном порту 6379 и сравнивай ответы своего сервера с ним.</li>
+<li>Прочитать <a href="https://redis.io/docs/latest/develop/reference/protocol-spec/" target="_blank" rel="noopener noreferrer">спецификацию RESP</a> (англ., с переводчиком). Нужны только разделы про RESP2 и запросы клиента; главное уже есть в таблице выше.</li>
+<li>Подсмотреть сырые байты: запусти <code>nc -l 6380</code> в одном окне и <code>redis-cli -p 6380 SET a 1</code> в другом. В первом окне увидишь ровно то, что твой сервер должен будет разобрать. Это лучший первый шаг проекта.</li>
+<li>Начать с минимального TCP-сервера и одного теста; не жди закрытия всех остальных roadmap-этапов, чтобы откликаться на стажировки.</li>
+</ol>
+<h3>Ресурсы — по порядку, с нуля</h3>
+<p>Читай по мере надобности, а не всё сразу: к каждой версии — своё. Русские материалы идут первыми; английские оставлены только там, где хорошей замены на русском нет, и они короткие — с переводчиком норм.</p>
+<p><strong>До старта: что такое Redis и сеть</strong></p>
+<ul>
+<li><a href="https://yandex.cloud/ru/blog/posts/2022/07/redis-overview" target="_blank" rel="noopener noreferrer">Обзор Redis от Yandex Cloud</a> (рус.) — что такое Redis, зачем хранить данные в оперативке, для чего его используют, как сохраняет данные на диск. Читается за 10 минут. В конце реклама их сервиса — пропускай.</li>
+<li>Потрогать настоящий Redis: <code>brew install redis</code>, запусти <code>redis-server</code> и поиграйся в <code>redis-cli</code> с командами из ТЗ. Полчаса такой игры дадут больше понимания, чем статья.</li>
+<li><a href="https://timeweb.com/ru/community/articles/chto-takoe-tcp-ip" target="_blank" rel="noopener noreferrer">Что такое TCP/IP и как работает этот протокол</a> (рус.) — сеть на пальцах: что такое порт, сокет, соединение, чем TCP отличается от UDP. Этого хватит для всего проекта.</li>
+</ul>
+<p><strong>v1 — TCP-сервер и протокол</strong></p>
+<ul>
+<li><a href="https://habr.com/ru/articles/1006316/" target="_blank" rel="noopener noreferrer">Пишем свой TCP-чат на Go: пошаговый гайд на пальцах</a> (рус., Хабр, 2026) — <strong>главная статья для старта.</strong> Только стандартная библиотека: сервер слушает порт, принимает клиентов, каждого в своей горутине, и корректно останавливается по сигналу. Ровно каркас твоего сервера, только вместо чата будут команды. Пригодится и в v2.</li>
+<li><a href="https://gobyexample.com/tcp-server" target="_blank" rel="noopener noreferrer">Go by Example: TCP Server</a> (англ., но там почти один код) — минимальный TCP-сервер на один экран: <code>net.Listen</code>, <code>Accept</code>, горутина на соединение, чтение через <code>bufio</code>. Удобно держать открытым как шпаргалку.</li>
+<li><a href="https://redis.io/docs/latest/develop/reference/protocol-spec/" target="_blank" rel="noopener noreferrer">Спецификация RESP</a> (англ.) — официальное описание протокола. На русском нормального разбора нет, поэтому начни с таблицы RESP в этом разделе, а спецификацию открывай с переводчиком, когда нужна точность.</li>
+<li><a href="https://arpitbhayani.me/videos/building-simple-tcp-echo-server-redis-internals" target="_blank" rel="noopener noreferrer">Arpit Bhayani: TCP echo server — основа Redis</a> (англ., видео) — пишет сервер на Go с нуля, показывает сырые байты, которые присылает <code>redis-cli</code>, и объясняет, почему серверу нужна конкурентность. По теме самое точное попадание; если английский на слух тяжело — включи субтитры.</li>
+</ul>
+<p><strong>v2 — много клиентов</strong></p>
+<ul>
+<li>Вкладка «Шпаргалка: основы Go», раздел про мапы (почему мапа не потокобезопасна), и ресурсы этапа 5 во вкладке Roadmap — там мьютексы, <code>WaitGroup</code> и гонки. Отдельных статей под Redis для этого не нужно.</li>
+<li>TCP-чат с Хабра выше — раздел про корректную остановку сервера.</li>
+</ul>
+<p><strong>v3 — срок жизни ключей</strong></p>
+<ul>
+<li><a href="https://oneuptime.com/blog/post/2026-03-31-redis-how-redis-key-expiration-algorithm-works-lazy-active/markdown" target="_blank" rel="noopener noreferrer">How Redis Key Expiration Algorithm Works</a> (англ., короткая) — как настоящий Redis удаляет просроченные ключи: лениво при обращении и активно — 10 раз в секунду проверяет 20 случайных ключей и повторяет, если просроченных больше 25%. Именно этот алгоритм ты повторишь.</li>
+</ul>
+<p><strong>v4 — сохранение на диск</strong></p>
+<ul>
+<li><a href="https://yandex.cloud/ru/blog/posts/2022/07/redis-overview" target="_blank" rel="noopener noreferrer">Обзор Redis от Yandex Cloud</a> (рус.) — часть про снапшоты и журнал операций (AOF): что это и чем рискуешь, если не сохранять данные.</li>
+<li><a href="https://habr.com/ru/post/548482" target="_blank" rel="noopener noreferrer">Эксплуатационный чек-лист для Redis</a> (рус., Хабр) — читай <strong>только раздел «Постоянное хранилище»</strong>: коротко и понятно сравниваются снапшоты и AOF. Остальная статья про Kubernetes и тебе пока не нужна.</li>
+</ul>
+<p><strong>v5 — защита</strong></p>
+<ul>
+<li><a href="https://habr.com/ru/post/485300" target="_blank" rel="noopener noreferrer">Вспышка червей H2Miner, которые эксплуатируют Redis</a> (рус., Хабр) — разбор реальной атаки: ботнет ищет Redis без пароля, заходит и ставит майнер. После неё станет понятно, зачем каждая защита из v5. Хороший первый шаг в кибербез.</li>
+</ul>
+<p><strong>План проекта целиком</strong></p>
+<ul>
+<li><a href="https://codingchallenges.substack.com/p/coding-challenge-8" target="_blank" rel="noopener noreferrer">Coding Challenge #8: Build Your Own Redis Server</a> (англ.) — тот же проект, разложенный на шаги: парсер RESP через тесты, PING/ECHO, SET/GET, много клиентов с <code>redis-benchmark</code>, срок жизни, <code>SAVE</code>. Хорошо сверяться, ничего ли не забыл.</li>
+</ul>
+<p><strong>Чего не делать:</strong> на GitHub лежат сотни готовых клонов Redis на Go. Не открывай их, пока сам не доделал версию: иначе вместо своего понимания получится чужой код, который на собеседовании не объяснишь. Застрял больше 30 минут — спрашивай меня, дам подсказку.</p>
+<h2>Каким должен быть пет-проект</h2>
+<p><strong>Стек и структура:</strong></p>
+<ul>
+<li class="task"><label><input type="checkbox" data-check="projects-26"><span>Go последней версии, PostgreSQL через pgx, <code>net/http</code> или chi</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-27"><span>Слои handler → service → repository, зависимости через интерфейсы и конструкторы</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-28"><span>Валидация входных данных и единый формат ошибок</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-29"><span>Схема БД через миграции, конфигурация из переменных окружения, логи через <code>slog</code></span></label></li>
+</ul>
+<p><strong>Глубина:</strong></p>
+<ul>
+<li class="task"><label><input type="checkbox" data-check="projects-30"><span>Нетривиальная бизнес-логика, которой нет в туториалах. Просто CRUD не считается</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-31"><span>Хотя бы одна осмысленная конкурентная часть: worker pool, фоновая обработка, параллельные запросы к внешнему API. Это главная сила Go, и на собеседовании про неё спросят</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-32"><span>Хотя бы один нетривиальный SQL-запрос: агрегация, оконная функция, полнотекстовый поиск или оптимизация индексом</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-33"><span>Корректное завершение: graceful shutdown, ни одной утёкшей горутины</span></label></li>
+</ul>
+<p><strong>Качество:</strong></p>
+<ul>
+<li class="task"><label><input type="checkbox" data-check="projects-34"><span>Табличные юнит-тесты, тесты обработчиков через <code>httptest</code>, интеграционные тесты с testcontainers-go</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-35"><span><code>go test -race</code> проходит</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-36"><span>Запуск одной командой <code>docker compose up</code></span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-37"><span>CI на GitHub Actions: тесты и golangci-lint на каждый push</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-38"><span>README: что делает проект, схема архитектуры и БД, как запустить, примеры запросов, какие решения приняты и почему</span></label></li>
+<li class="task"><label><input type="checkbox" data-check="projects-39"><span>Коммиты по частям с понятными сообщениями</span></label></li>
+</ul>
+<p><strong>Чего избегать:</strong></p>
+<ul>
+<li>Todo-лист или сокращатель ссылок «как в видео» — их тысячи, они ничего не показывают</li>
+<li>Код из туториала или сгенерированный ИИ — на первом же «почему так?» это всплывёт</li>
+<li>Микросервисы и Kubernetes с первого дня — сложность без причины читается как непонимание</li>
+<li>Голые горутины без <code>context</code> и без ожидания завершения — на Go-собеседовании это сразу заметят</li>
+</ul>
+<h2>Как проект растёт вместе с roadmap</h2>
+<p>Проект начинается на этапе 7 и достраивается версиями. Каждая версия работает целиком.</p>
+<ol>
+<li><strong>v1</strong> — HTTP API с хранением в памяти, DTO, валидация (W7.1–W7.2)</li>
+<li><strong>v2</strong> — PostgreSQL, слой repository, пагинация, middleware (W7.3–W7.5)</li>
+<li><strong>v3</strong> — тесты, graceful shutdown, авторизация, Swagger (W7.6–W7.8)</li>
+<li><strong>v4</strong> — Docker, миграции, CI (I8.1–I8.4)</li>
+<li><strong>v5</strong> — изюминка: Redis, Kafka или сложная конкурентная часть из описания идеи (I8.5–I8.6)</li>
+</ol>
+<h2>Идеи</h2>
+<div class="table-wrap"><table><thead><tr><th>Идея</th><th>Сложная часть</th><th>Что покажет на собеседовании</th><th>Сложность</th></tr></thead><tbody>
+<tr><td>1. yt_vid_search — поиск по субтитрам YouTube</td><td>Параллельная загрузка и индексация, полнотекстовый поиск</td><td>Конкурентность, SQL, работа с внешним API</td><td>Средняя–высокая</td></tr>
+<tr><td>2. Мини-банк</td><td>Атомарные переводы, блокировки, идемпотентность</td><td>Транзакции, конкурентность — то, что любят финтех и банки</td><td>Средняя–высокая</td></tr>
+<tr><td>3. Сервис уведомлений</td><td>Очередь событий, повторы, гарантии доставки</td><td>Kafka, Redis, фоновые воркеры — стек Ozon, WB, МТС</td><td>Средняя</td></tr>
+<tr><td>4. Трекер тренировок</td><td>Аналитика прогресса на SQL, правила прогрессии</td><td>SQL, модель данных, бизнес-логика</td><td>Средняя</td></tr>
+</tbody></table></div>
+<h3>1. yt_vid_search — поиск по субтитрам YouTube</h3>
+<p>Твой проект уже на Go. Сервис принимает ссылки на видео или плейлисты, скачивает субтитры, индексирует их и ищет фразу с точным таймкодом.</p>
+<ul>
+<li><strong>Основа:</strong> добавление видео и плейлистов, хранение субтитров в PostgreSQL, поиск с таймкодами.</li>
+<li><strong>Изюминка:</strong> загрузка субтитров через worker pool с ограничением скорости к внешнему API и отменой через <code>context</code>; полнотекстовый поиск PostgreSQL (<code>tsvector</code>, русская морфология); фоновая индексация через очередь задач; кеш популярных запросов в Redis.</li>
+<li><strong>Почему хорошо:</strong> горутины здесь нужны по делу, а не ради галочки. Ты уже думал над этой задачей, значит, проще дойти до конца. И это мост в ML: позже добавляется семантический поиск на эмбеддингах, и один проект показывает и бэкенд, и ML.</li>
+<li><strong>Слабое место:</strong> внешние API непредсказуемы. Заложи заглушку-источник субтитров, чтобы тесты и демо не зависели от YouTube.</li>
+</ul>
+<h3>2. Мини-банк</h3>
+<p>REST-сервис счетов и переводов. Ближе всего к тому, что спрашивают в Т-Банке, Ozon Банке и других финтех-командах.</p>
+<ul>
+<li><strong>Основа:</strong> открытие счёта, пополнение, снятие, перевод, выписка за период.</li>
+<li><strong>Изюминка:</strong> атомарный перевод с <code>SELECT ... FOR UPDATE</code> и упорядоченной блокировкой счетов; ключ идемпотентности, чтобы повтор запроса не списал деньги дважды; тест, где 1000 параллельных переводов сохраняют общую сумму; деньги в целых копейках, а не во <code>float64</code> — и объяснение почему.</li>
+<li><strong>Слабое место:</strong> идея популярная, выделиться можно только глубиной.</li>
+</ul>
+<h3>3. Сервис уведомлений</h3>
+<p>Принимает события от других сервисов и рассылает уведомления по каналам: email-заглушка, Telegram-бот, вебхук.</p>
+<ul>
+<li><strong>Изюминка:</strong> события приходят через Kafka, воркеры обрабатывают их параллельно, неудачные отправки повторяются с увеличивающейся задержкой, безнадёжные уходят в отдельный топик; дедупликация через Redis.</li>
+<li><strong>Почему хорошо:</strong> Kafka и Redis указаны почти в каждой Go-вакансии Ozon, WB, МТС и VK, а здесь они нужны по делу.</li>
+</ul>
+<h3>4. Трекер тренировок</h3>
+<p>Сервис, куда записываются тренировки подход за подходом и который подсказывает вес на следующую тренировку. Ты сам будешь им пользоваться.</p>
+<ul>
+<li><strong>Изюминка:</strong> расчёт следующего веса по правилам прогрессии, оценка разового максимума, тоннаж по неделям и рекорды через оконные функции, импорт истории из CSV.</li>
+<li><strong>Слабое место:</strong> мало конкурентности. Её придётся показывать задачами этапа 5.</li>
+</ul>
+<h2>Рекомендация</h2>
+<p>Основным проектом бери <strong>yt_vid_search</strong>: он уже на Go, в нём есть настоящая конкурентность и SQL, и он продолжается в ML. Если к весне захочешь второй, небольшой проект под конкретную цель — бери <strong>мини-банк</strong> для финтеха или <strong>сервис уведомлений</strong> для Ozon, WB и МТС. Основной проект не меняй до v5.</p></section>
+</main>
+<script>
+(() => {
+  const storageKey = 'go-internship-docs-progress-v1';
+  const tabs = [...document.querySelectorAll('[role="tab"]')];
+  const panels = [...document.querySelectorAll('[role="tabpanel"]')];
+  const title = document.getElementById('doc-title');
+  const label = document.getElementById('progress-label');
+  const percent = document.getElementById('progress-percent');
+  const bar = document.getElementById('progress-bar');
+  const track = document.querySelector('[role="progressbar"]');
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(storageKey) || '{}') || {}; } catch (_) { saved = {}; }
+
+  function updateProgress(panel) {
+    const checks = [...panel.querySelectorAll('input[type="checkbox"][data-check]')];
+    const done = checks.filter(c => c.checked).length;
+    const pct = checks.length ? Math.round(done * 100 / checks.length) : 0;
+    label.textContent = `${done} из ${checks.length} выполнено`;
+    percent.textContent = `${pct}%`;
+    bar.style.width = `${pct}%`;
+    track.setAttribute('aria-valuenow', String(pct));
+  }
+
+  panels.forEach(panel => {
+    const doc = panel.dataset.doc;
+    panel.querySelectorAll('input[type="checkbox"][data-check]').forEach(check => {
+      if (Object.prototype.hasOwnProperty.call(saved, check.dataset.check)) check.checked = Boolean(saved[check.dataset.check]);
+      check.addEventListener('change', () => {
+        saved[check.dataset.check] = check.checked;
+        try { localStorage.setItem(storageKey, JSON.stringify(saved)); } catch (_) {}
+        updateProgress(panel);
+      });
+    });
+  });
+
+  function activate(tab) {
+    const targetId = tab.getAttribute('aria-controls');
+    tabs.forEach(t => {
+      const on = t === tab;
+      t.classList.toggle('active', on);
+      t.setAttribute('aria-selected', String(on));
+    });
+    panels.forEach(p => {
+      const on = p.id === targetId;
+      p.hidden = !on;
+      p.classList.toggle('active', on);
+      if (on) {
+        title.textContent = p.dataset.title;
+        updateProgress(p);
+      }
+    });
+  }
+  tabs.forEach(tab => tab.addEventListener('click', () => activate(tab)));
+  tabs.forEach((tab,index) => tab.addEventListener('keydown', event => {
+    if (!['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return;
+    event.preventDefault();
+    const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length-1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+    tabs[next].focus(); activate(tabs[next]);
+  }));
+  updateProgress(panels.find(p => !p.hidden) || panels[0]);
+})();
+</script>
+</body>
+</html>
