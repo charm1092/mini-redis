@@ -1,14 +1,18 @@
 package server
 
 import (
+	"bufio"
 	"context"
 	"fmt"
 	"log"
 	"net"
 	"os/signal"
+	"strings"
 	"sync"
 	"syscall"
 	"time"
+	"strconv"
+	"io"
 )
 
 type Server struct {
@@ -36,6 +40,86 @@ type Message struct {
 type Peer struct {
 	Conn        net.Conn
 	ConnectedAt time.Time
+}
+
+func ReadCommand(reader *bufio.Reader) ([]string, error) {
+	readLine := func () (string, error) {
+		line, err := reader.ReadString('\n')
+		if err != nil {
+			return "", err
+		}
+		if !strings.HasSuffix(line, "\r\n") {
+			return "", fmt.Errorf("ожидалось окончание строки \\r\\n")
+		}
+
+		return strings.TrimSuffix(line, "\r\n"), nil
+	}
+
+	header, err := readLine()
+    if err != nil {
+        return nil, err
+    }
+    if len(header) < 2 || header[0] != '*' {
+        return nil, fmt.Errorf("ожидался массив, получено %q", header)
+    }
+
+    count, err := strconv.Atoi(header[1:])
+    if err != nil || count < 1 || count > 1024 {
+        return nil, fmt.Errorf("неверное количество элементов: %q", header[1:])
+    }
+
+    args := make([]string, count)
+
+    for i := range args {
+        header, err := readLine()
+        if err != nil {
+            return nil, err
+        }
+        if len(header) < 2 || header[0] != '$' {
+            return nil, fmt.Errorf("ожидалась строка с длиной, получено %q", header)
+        }
+
+        length, err := strconv.Atoi(header[1:])
+        if err != nil || length < 0 || length > 1024*1024 {
+            return nil, fmt.Errorf("неверная длина строки: %q", header[1:])
+        }
+
+        data := make([]byte, length+2)
+        if _, err := io.ReadFull(reader, data); err != nil {
+            return nil, err
+        }
+
+        if data[length] != '\r' || data[length+1] != '\n' {
+            return nil, fmt.Errorf("после содержимого ожидалось \\r\\n")
+        }
+
+        args[i] = string(data[:length])
+    }
+
+    return args, nil
+}
+
+func executeCommand(line []string, conn net.Conn) {
+	if line[0] == "PING" {
+		pong(conn)
+	}
+	if line[0] == "SET" {
+		// set()
+	}
+	if line[0] == "ECHO" {
+		// echo()
+	}
+	if line[0] == "GET" {
+		// get()
+	}
+	
+}
+
+func pong(conn net.Conn) {
+	_, err := conn.Write([]byte("+PONG\r\n"))
+	if err != nil {
+		return
+	}
 }
 
 func (s *Server) acceptLoop(ctx context.Context) {
@@ -80,19 +164,20 @@ func (s *Server) Start() error {
 func (s *Server) handleConn(conn net.Conn) {
 	defer conn.Close()
 
-	buf := make([]byte, 2048)
+	reader := bufio.NewReader(conn)
 	for {
-		n, err := conn.Read(buf)
+		line, err := ReadCommand(reader)
 		if err != nil {
 			log.Printf("Connection error: %v", err)
 			return
 		}
 
-		msg := &Message{
-			Author: conn.RemoteAddr().String(),
-			Text:   string(buf[:n]),
-		}
-		s.messagesChan <- *msg
+		executeCommand(line, conn)
+		// msg := &Message{
+		// 	Author: conn.RemoteAddr().String(),
+		// 	Text:   string(buf[:n]),
+		// }
+		// s.messagesChan <- *msg
 	}
 }
 
